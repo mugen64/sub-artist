@@ -17,7 +17,11 @@
     <nav class="sart-nav sart-nav--horizontal">
       <nuxt-link to="/docs" v-text="`Docs`" />
       <nuxt-link to="/issues" v-text="`Issues`" />
-      <nuxt-link to="/github" v-text="`Github`" />
+      <a
+        href="https://github.com/mugen64/"
+        target="__blank"
+        v-text="`Github`"
+      />
     </nav>
   </header>
 </template>
