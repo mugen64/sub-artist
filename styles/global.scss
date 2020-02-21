@@ -50,6 +50,11 @@ nav {
 .txt-no-wrap {
   white-space: nowrap;
 }
+.txt{
+  &--large {
+    font-size: 3.5em;
+  }
+}
 .fw{
   &--xbold {
     font-weight: $xbold;
