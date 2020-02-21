@@ -1,9 +1,9 @@
 <template>
   <svg
-    class="NuxtLogo"
-    width="245"
-    height="180"
-    viewBox="0 0 452 342"
+    class="sart-logo__responsive"
+    width="30"
+    height="30"
+    viewBox="0 0 30 30"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g fill="none" fill-rule="evenodd">

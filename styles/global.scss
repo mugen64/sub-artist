@@ -1,0 +1,83 @@
+// variables
+$black: #000;
+$primary : #555;
+$xbold: 700;
+$bold: 500;
+$regular: 400;
+$thin: 100;
+
+// native elements
+html, body{
+  font-family: 'Anonymous Pro', 'Courier New', Courier, monospace;
+  color: $black;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a, button {
+  color: $primary;
+  font-weight: $bold;
+}
+
+nav {
+  ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: .5rem;
+  }
+  &.sart-nav--horizontal {
+    display: inline-block;
+    ul, li {
+      display: inline-block;
+    }
+  }
+}
+
+//------ utility classess
+// type
+.txt-tfm {
+  &--upc {
+    text-transform: uppercase;
+  }
+  &--lwc {
+    text-transform: lowercase;
+  }
+}
+.txt-no-wrap {
+  white-space: nowrap;
+}
+.fw{
+  &--xbold {
+    font-weight: $xbold;
+  }
+  &--bold {
+    font-weight: $bold;
+  }
+  &--thin {
+    font-weight: $thin;
+  }
+}
+
+// colors
+.black {
+  background-color: $black;
+  &-text{
+    color: $black;
+  }
+}
+
+
+.bg {
+  &--primary {
+    background-color:$primary;
+  }
+}
+
+
