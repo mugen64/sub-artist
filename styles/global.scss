@@ -1,0 +1,96 @@
+@import "~/styles/_variables.scss";
+
+// native elements
+html, body{
+  font-family: 'Anonymous Pro', 'Courier New', Courier, monospace;
+  color: $black;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a, button {
+  color: $primary;
+  font-weight: $bold;
+  &:hover {
+    color: darken($primary, $amount: 50);
+  }
+}
+
+nav {
+  ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+    padding: .5rem;
+  }
+  &.sart-nav--horizontal {
+    display: inline-block;
+    ul, li {
+      display: inline-block;
+    }
+  }
+}
+
+//------ utility classess
+// type
+.txt-tfm {
+  &--upc {
+    text-transform: uppercase;
+  }
+  &--lwc {
+    text-transform: lowercase;
+  }
+}
+.txt-no-wrap {
+  white-space: nowrap;
+}
+.fw{
+  &--xbold {
+    font-weight: $xbold;
+  }
+  &--bold {
+    font-weight: $bold;
+  }
+  &--thin {
+    font-weight: $thin;
+  }
+}
+
+// colors
+.black {
+  background-color: $black;
+  &-text{
+    color: $black;
+  }
+}
+
+.bdr-solid{
+  &--black {
+    border: 1px solid $black;
+  }
+}
+.bdrl-solid--black {
+  border-left: 1px solid $black;
+}
+.bdrr-solid--black {
+  border-right: 1px solid $black;
+}
+.bdrb-solid--black {
+  border-bottom: 1px solid $black;
+}
+
+
+
+.bg {
+  &--primary {
+    background-color:$primary;
+  }
+}
+
+
