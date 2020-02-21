@@ -43,7 +43,6 @@ export default {
 .sart-container {
   display: block;
   position: relative;
-  background: black;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

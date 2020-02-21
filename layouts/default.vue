@@ -13,17 +13,8 @@
   </sart-app>
 </template>
 <script>
-import SartApp from '~/components/layouts/SartApp';
-import SartAppbar from '~/components/layouts/SartAppBar';
-import SartAppFooter from '~/components/layouts/SartAppFooter';
-import SartContainer from '~/components/layouts/SartContainer';
 export default {
-  components: {
-    SartApp,
-    SartAppbar,
-    SartAppFooter,
-    SartContainer
-  },
+  components: {},
   computed: {
     contentMarginTop() {
       if (this.$refs.appBar) {

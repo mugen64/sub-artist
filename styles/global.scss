@@ -19,6 +19,9 @@ body {
 a, button {
   color: $primary;
   font-weight: $bold;
+  &:hover {
+    color: darken($primary, $amount: 50);
+  }
 }
 
 nav {
