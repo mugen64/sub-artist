@@ -1,10 +1,4 @@
-// variables
-$black: #000;
-$primary : #555;
-$xbold: 700;
-$bold: 500;
-$regular: 400;
-$thin: 100;
+@import "~/styles/_variables.scss";
 
 // native elements
 html, body{
@@ -75,6 +69,22 @@ nav {
     color: $black;
   }
 }
+
+.bdr-solid{
+  &--black {
+    border: 1px solid $black;
+  }
+}
+.bdrl-solid--black {
+  border-left: 1px solid $black;
+}
+.bdrr-solid--black {
+  border-right: 1px solid $black;
+}
+.bdrb-solid--black {
+  border-bottom: 1px solid $black;
+}
+
 
 
 .bg {

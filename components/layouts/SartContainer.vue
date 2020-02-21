@@ -46,7 +46,6 @@ export default {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  padding: 1rem;
   &--fluid {
     width: 100%;
   }

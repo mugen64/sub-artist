@@ -24,5 +24,6 @@ export default {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  flex-wrap: wrap;
 }
 </style>

@@ -40,7 +40,8 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+@import '~/styles/_variables.scss';
 .sart-appbar {
   display: flex;
   display: -webkit-flex;
@@ -53,6 +54,7 @@ export default {
   padding: 1rem;
   overflow: hidden;
   width: 100%;
+  border-bottom: 1px solid lighten($primary, $amount: 60);
   &--fixed {
     position: fixed;
     top: 0;
