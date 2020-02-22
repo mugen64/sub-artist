@@ -13,6 +13,7 @@
         @change="fileLoaded"
       />
       <sart-media-player
+        ref="mediaPlayer"
         :media-uri="mediaUri"
         :media-file="mediaFile"
         @req-media-uri="requestVideo"
@@ -24,6 +25,7 @@
       <sart-subtitle-preview
         :subtitles="subtitles"
         :current-time="currentTime"
+        @sub-clicked="jumpToSubTime"
       />
     </sart-container>
     <sart-container fluid tag="article">
@@ -87,7 +89,7 @@ export default {
   },
   computed: {
     formattedCurrentTime() {
-      return this.$subtitles.formatTimeFromFloat(this.currentTime);
+      return this.$subtitles.formatDurationFromFloat(this.currentTime);
     }
   },
   mounted() {
@@ -187,6 +189,13 @@ export default {
         console.log(
           'Cue Times Invalid Make Sure Start is before Endtime and both are captured'
         );
+    },
+    jumpToSubTime(sub) {
+      if (this.mediaUri) {
+        this.$refs.mediaPlayer.play(
+          this.$subtitles.fromFormattedDurationToFloat(sub.start)
+        );
+      }
     },
     generate() {
       this.cleanCurrentFile();

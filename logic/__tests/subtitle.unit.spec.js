@@ -6,15 +6,35 @@ momentDurationFormatSetup(moment); // TODO is there a better way of doin this
 const subtitleLogic = subs(moment);
 
 describe('Subtitles Logic', () => {
-  describe('formatTimeFromFloat', () => {
+  describe('formatDurationFromFloat', () => {
     it('should accept a float/number value representing time in seconds and return a formatted time string in webvtt time format', () => {
-      expect(subtitleLogic.formatTimeFromFloat(0.0)).toEqual('00:00:00.000');
-      expect(subtitleLogic.formatTimeFromFloat(1)).toEqual('00:00:01.000');
-      expect(subtitleLogic.formatTimeFromFloat(1.0)).toEqual('00:00:01.000');
-      expect(subtitleLogic.formatTimeFromFloat(1.001)).toEqual('00:00:01.001');
-      expect(subtitleLogic.formatTimeFromFloat(97200.001)).toEqual(
+      expect(subtitleLogic.formatDurationFromFloat(0.0)).toEqual(
+        '00:00:00.000'
+      );
+      expect(subtitleLogic.formatDurationFromFloat(1)).toEqual('00:00:01.000');
+      expect(subtitleLogic.formatDurationFromFloat(1.0)).toEqual(
+        '00:00:01.000'
+      );
+      expect(subtitleLogic.formatDurationFromFloat(1.001)).toEqual(
+        '00:00:01.001'
+      );
+      expect(subtitleLogic.formatDurationFromFloat(97200.001)).toEqual(
         '27:00:00.001'
       );
+    });
+  });
+
+  describe('fromFormattedDurationToFloat', () => {
+    it('should accept time formatted in bevtt time to float', () => {
+      expect(
+        subtitleLogic.fromFormattedDurationToFloat('00:00:00.000')
+      ).toEqual(0);
+      expect(
+        subtitleLogic.fromFormattedDurationToFloat('00:00:01.000')
+      ).toEqual(1.0);
+      expect(
+        subtitleLogic.fromFormattedDurationToFloat('27:00:00.001')
+      ).toEqual(97200.001);
     });
   });
 

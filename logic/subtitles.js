@@ -16,7 +16,7 @@ export default (moment) => {
      * @param {Boolean} trim
      * @return {String}
      */
-    formatTimeFromFloat(
+    formatDurationFromFloat(
       timeInFloat,
       timeUnits = 'seconds',
       formatUsed = 'webVttTime',
@@ -25,6 +25,24 @@ export default (moment) => {
       return moment
         .duration(timeInFloat, timeUnits)
         .format(timeFormats[formatUsed], { trim });
+    },
+    fromFormattedDurationToFloat(
+      formattedTime,
+      formatUsed = 'webVttTime',
+      timeUnits = 'seconds'
+    ) {
+      // const f = timeFormats[formatUsed];
+      // return moment(formattedTime, f).diff(
+      //   moment(this.formatDurationFromFloat(0, timeUnits, formatUsed), f),
+      //   timeUnits
+      // );
+      // for now manually
+      if (!formattedTime) return 0;
+      const parts = formattedTime.split(':');
+      let duration = +parts[0] * 60 * 60;
+      duration += +parts[1] * 60;
+      duration += +parts[2];
+      return duration;
     },
     /**
      * Check if time of interest is between a times a and b
