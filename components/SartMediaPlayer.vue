@@ -11,6 +11,23 @@
       <br />
       {{ mediaError }}
     </div>
+    <div v-else class="sart-media-player__container">
+      <video
+        v-show="mediaFile.kind === 'video'"
+        ref="videoPlayer"
+        :src="mediaUri"
+        controls
+      >
+        HTML5 Video Not Supported by your Browser
+      </video>
+      <audio
+        v-show="mediaFile.kind === 'audio'"
+        ref="audioPlayer"
+        :src="mediaUri"
+      >
+        HTML5 Audio Not Supported by your Browser
+      </audio>
+    </div>
   </div>
 </template>
 <script>
@@ -19,16 +36,22 @@ export default {
     mediaUri: {
       type: String,
       default: null
+    },
+    mediaFile: {
+      type: Object,
+      default: () => {
+        return {};
+      }
     }
+  },
+  data() {
+    return {};
   },
   computed: {
     mediaError() {
       if (!this.mediaUri) return 'Please Load Video';
       return 'Unknown Error';
     }
-  },
-  data() {
-    return {};
   },
   methods: {
     errorIconClicked() {
@@ -50,6 +73,14 @@ export default {
     text-align: center;
     width: 100%;
     height: 100%;
+  }
+  &__container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    // video {
+    //   margin: auto;
+    // }
   }
 }
 </style>

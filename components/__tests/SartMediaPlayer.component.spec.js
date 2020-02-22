@@ -6,9 +6,6 @@ describe('SartMediaPlayer.vue', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallowMount(Component, {
-      propsData: {
-        landscape: true
-      },
       stubs: {
         MaterialIcon: true
       }
@@ -20,4 +17,39 @@ describe('SartMediaPlayer.vue', () => {
     expect(wrapper.text()).toContain('Please Load Video');
     expect(wrapper.html()).toMatchSnapshot();
   });
+  it('should load video file into html video element', () => {
+    wrapper = shallowMount(Component, {
+      propsData: {
+        mediaUri: 'vid.mp4',
+        mediaFile: {
+          kind: 'video'
+        }
+      },
+      stubs: {
+        MaterialIcon: true
+      }
+    });
+    const player = wrapper.find('video');
+    expect(player.exists()).toBeTruthy();
+    expect(player.attributes('src')).toBe('vid.mp4');
+  });
+
+  it('should load audio file into html audio element', () => {
+    wrapper = shallowMount(Component, {
+      propsData: {
+        mediaUri: 'vid.mp3',
+        mediaFile: {
+          kind: 'audio'
+        }
+      },
+      stubs: {
+        MaterialIcon: true
+      }
+    });
+
+    const player = wrapper.find('audio');
+    expect(player.exists()).toBeTruthy();
+    expect(player.attributes('src')).toBe('vid.mp3');
+  });
+
 });

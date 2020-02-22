@@ -5,9 +5,18 @@
       style="flex-grow: 1;"
       class="workspace__media-viewer"
     >
-      <h1>Annotate and Sub Media Untitled Media</h1>
-      <input ref="loadMediaFileBtn" type="file" data-test="loadMediaFileBtn" />
-      <sart-media-player :media-uri="mediaUri" @req-media-uri="requestVideo" />
+      <h1>Annotate and Sub Media {{ mediaFile.name }}</h1>
+      <input
+        ref="loadMediaFileBtn"
+        type="file"
+        data-test="loadMediaFileBtn"
+        @change="fileLoaded"
+      />
+      <sart-media-player
+        :media-uri="mediaUri"
+        :media-file="mediaFile"
+        @req-media-uri="requestVideo"
+      />
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
       <h2>Preview</h2>
@@ -24,12 +33,61 @@ export default {
   components: { SartMediaPlayer },
   data() {
     return {
-      mediaUri: null
+      mediaUri: null,
+      mediaFile: {
+        name: 'Untitled Media'
+      },
+      // TODO leave file reader code in just incase
+      fileReader: null
     };
+  },
+  mounted() {
+    this.fileReader = new FileReader();
+    this.fileReader.onload = (evt) => {
+      console.log(evt);
+    };
+    this.fileReader.onerror = (evt) => {
+      console.error('An error ocurred reading the file', evt);
+    };
+  },
+  beforeDestroy() {
+    // clean up
+    this.fileReader.onload = null;
+    this.fileReader.onerror = null;
+    if (this.mediaUri) {
+      URL.revokeObjectURL(this.mediaUri);
+    }
   },
   methods: {
     requestVideo() {
       this.$refs.loadMediaFileBtn.click();
+    },
+    fileLoaded() {
+      const files = this.$refs.loadMediaFileBtn.files; // FileList
+      if (files.length > 0) {
+        const file = files[0];
+        if (file.type.match(/video/)) {
+          // video file
+          console.log('Video File');
+          this.mediaUri = URL.createObjectURL(file);
+          this.mediaFile.kind = 'video';
+          this.mediaFile.type = file.type;
+          this.mediaFile.name = file.name;
+          this.mediaFile.size = file.size;
+        } else if (file.type.match(/audio/)) {
+          // audio file
+          this.mediaUri = URL.createObjectURL(file);
+          this.mediaFile.kind = 'audio';
+          this.mediaFile.type = file.type;
+          this.mediaFile.name = file.name;
+          this.mediaFile.size = file.size;
+          console.log('Audio File');
+        } else {
+          console.log('File Not supported');
+        }
+      } else {
+        console.log('No File Selected');
+      }
     }
   }
 };
