@@ -17,7 +17,6 @@ a, button {
     color: darken($primary, $amount: 50);
   }
 }
-
 nav {
   ul, li {
     list-style: none;
@@ -53,6 +52,13 @@ nav {
 .txt{
   &--large {
     font-size: 3.5em;
+  }
+  &-underline {
+      text-decoration: underline;
+  }
+  &-bold-underline {
+    text-decoration: underline;
+    font-weight: 700;
   }
 }
 .fw{
@@ -99,3 +105,8 @@ nav {
 }
 
 
+// layout
+.fill-width{
+  width: 100%;
+  box-sizing: border-box;
+}
