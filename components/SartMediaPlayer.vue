@@ -74,9 +74,12 @@ export default {
       if (!this.mediaUri) this.$emit('req-media-uri');
     },
     play(timeInFloat) {
+      const player = this.isVideo
+        ? this.$refs.videoPlayer
+        : this.$refs.audioPlayer;
       // TODO find if there is another way of doing this
-      if (this.isVideo) this.$refs.videoPlayer.currentTime = timeInFloat;
-      else this.$refs.audioPlayer.currentTime = timeInFloat;
+      player.play();
+      player.currentTime = timeInFloat;
     }
   }
 };
