@@ -20,10 +20,14 @@
       />
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
-      <h2>Preview</h2>
+      <h2>{{ mediaFile.name }} SubTitle Preview</h2>
     </sart-container>
     <sart-container fluid tag="article">
-      <h2>Editor</h2>
+      <h3>Editor</h3>
+      <sart-toolbar>
+        <button :disabled="!mediaUri">Timestep={{ currentTime }}</button>
+        <spacer />
+      </sart-toolbar>
     </sart-container>
   </sart-tiles>
 </template>
@@ -39,7 +43,8 @@ export default {
         name: 'Untitled Media'
       },
       // TODO leave file reader code in just incase
-      fileReader: null
+      fileReader: null,
+      currentTime: 0
     };
   },
   mounted() {
@@ -93,10 +98,11 @@ export default {
     },
     mediaTimeUpdate(evt) {
       console.log(evt);
-      this.formatTime(evt.timeStamp);
+      this.formatTime(evt.target.currentTime);
     },
     formatTime(time) {
-      console.log(time);
+      // console.log(time);
+      this.currentTime = time;
     }
   }
 };
