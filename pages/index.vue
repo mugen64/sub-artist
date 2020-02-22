@@ -20,24 +20,43 @@
       />
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
-      <h2>{{ mediaFile.name }} SubTitle Preview</h2>
+      <h2>SubTitle Preview</h2>
+      <!-- {{ subtitles }} -->
+      <p
+        v-for="(sub, i) in subtitles"
+        :key="`sub_${i}`"
+        :class="{ 'txt-bold-underline': isCurrent(sub) }"
+      >
+        {{ sub.text }}
+        <br />
+      </p>
     </sart-container>
     <sart-container fluid tag="article">
       <h3>Editor</h3>
       <sart-toolbar>
-        <button :disabled="!mediaUri">
-          Timestep={{ formattedCurrentTime }}
+        <button :disabled="!mediaUri" @click="start">
+          Start={{ startTime || formattedCurrentTime }}
+        </button>
+        &nbsp;
+        <button :disabled="!mediaUri" @click="endTime = formattedCurrentTime">
+          End={{ endTime || formattedCurrentTime }}
         </button>
         <spacer />
+        <button :disabled="!mediaUri" @click="commit">
+          Commit
+        </button>
       </sart-toolbar>
+      <transcript-editor v-model="subtitle" />
     </sart-container>
   </sart-tiles>
 </template>
 
 <script>
 import SartMediaPlayer from '~/components/SartMediaPlayer';
+import TranscriptEditor from '~/components/TranscriptEditor';
+
 export default {
-  components: { SartMediaPlayer },
+  components: { SartMediaPlayer, TranscriptEditor },
   data() {
     return {
       mediaUri: null,
@@ -46,14 +65,19 @@ export default {
       },
       // TODO leave file reader code in just incase
       fileReader: null,
-      currentTime: 0
+      currentTime: 0,
+      startTime: null,
+      endTime: null,
+      subtitle: '',
+      subtitles: [],
+      wTimeFormat: 'hh:mm:ss.SSS'
     };
   },
   computed: {
     formattedCurrentTime() {
       return this.$moment
         .duration(this.currentTime, 'seconds')
-        .format('hh:mm:ss.SSS'); // .format('hh:mm:ss.ttt');
+        .format(this.wTimeFormat, { trim: false }); // .format('hh:mm:ss.ttt');
     }
   },
   mounted() {
@@ -106,12 +130,35 @@ export default {
       }
     },
     mediaTimeUpdate(evt) {
-      console.log(evt);
-      this.formatTime(evt.target.currentTime);
+      // console.log(evt);
+      this.currentTime = evt.target.currentTime;
     },
     formatTime(time) {
       // console.log(time);
-      this.currentTime = time;
+      return this.$moment
+        .duration(time, 'seconds')
+        .format(this.wTimeFormat, { trim: false });
+    },
+    start() {
+      this.startTime = this.formattedCurrentTime;
+      this.endTime = null;
+    },
+    commit() {
+      if (!this.startTime || !this.endTime) return;
+      // console.log(this.$moment(this.endTime).isBefore(this.startTime));
+      if (!this.$moment(this.endTime).isBefore(this.startTime))
+        this.subtitles.push({
+          start: this.startTime,
+          end: this.endTime,
+          text: this.subtitle
+        });
+    },
+    isCurrent(sub) {
+      const cur = this.formatTime(this.currentTime);
+      return this.$moment(cur, this.wTimeFormat).isBetween(
+        this.$moment(sub.start, this.wTimeFormat),
+        this.$moment(sub.end, this.wTimeFormat)
+      );
     }
   }
 };

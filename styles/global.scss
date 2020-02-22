@@ -53,6 +53,13 @@ nav {
   &--large {
     font-size: 3.5em;
   }
+  &-underline {
+      text-decoration: underline;
+  }
+  &-bold-underline {
+    text-decoration: underline;
+    font-weight: 700;
+  }
 }
 .fw{
   &--xbold {
@@ -98,3 +105,7 @@ nav {
 }
 
 
+// layout
+.fill-width{
+  width: 100%;
+}
