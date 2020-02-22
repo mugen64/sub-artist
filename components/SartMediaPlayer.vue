@@ -17,6 +17,12 @@
         ref="videoPlayer"
         :src="mediaUri"
         controls
+        @timeupdate="$emit('timeupdate', $event)"
+        @play="$emit('play', $event)"
+        @playing="$emit('pause', $event)"
+        @pause="$emit('pause', $event)"
+        @ended="$emit('ended', $event)"
+        @progress="$emit('progress', $event)"
       >
         HTML5 Video Not Supported by your Browser
       </video>
@@ -24,6 +30,13 @@
         v-show="mediaFile.kind === 'audio'"
         ref="audioPlayer"
         :src="mediaUri"
+        controls
+        @timeupdate="$emit('timeupdate', $event)"
+        @play="$emit('play', $event)"
+        @playing="$emit('pause', $event)"
+        @pause="$emit('pause', $event)"
+        @ended="$emit('ended', $event)"
+        @progress="$emit('progress', $event)"
       >
         HTML5 Audio Not Supported by your Browser
       </audio>

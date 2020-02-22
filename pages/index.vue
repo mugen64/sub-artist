@@ -16,6 +16,7 @@
         :media-uri="mediaUri"
         :media-file="mediaFile"
         @req-media-uri="requestVideo"
+        @timeupdate="mediaTimeUpdate"
       />
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
@@ -66,9 +67,10 @@ export default {
       const files = this.$refs.loadMediaFileBtn.files; // FileList
       if (files.length > 0) {
         const file = files[0];
+        // console.log(file);
         if (file.type.match(/video/)) {
           // video file
-          console.log('Video File');
+          // console.log('Video File');
           this.mediaUri = URL.createObjectURL(file);
           this.mediaFile.kind = 'video';
           this.mediaFile.type = file.type;
@@ -81,13 +83,20 @@ export default {
           this.mediaFile.type = file.type;
           this.mediaFile.name = file.name;
           this.mediaFile.size = file.size;
-          console.log('Audio File');
+          // console.log('Audio File');
         } else {
           console.log('File Not supported');
         }
       } else {
         console.log('No File Selected');
       }
+    },
+    mediaTimeUpdate(evt) {
+      console.log(evt);
+      this.formatTime(evt.timeStamp);
+    },
+    formatTime(time) {
+      console.log(time);
     }
   }
 };
