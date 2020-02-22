@@ -25,7 +25,9 @@
     <sart-container fluid tag="article">
       <h3>Editor</h3>
       <sart-toolbar>
-        <button :disabled="!mediaUri">Timestep={{ currentTime }}</button>
+        <button :disabled="!mediaUri">
+          Timestep={{ formattedCurrentTime }}
+        </button>
         <spacer />
       </sart-toolbar>
     </sart-container>
@@ -46,6 +48,13 @@ export default {
       fileReader: null,
       currentTime: 0
     };
+  },
+  computed: {
+    formattedCurrentTime() {
+      return this.$moment
+        .duration(this.currentTime, 'seconds')
+        .format('hh:mm:ss.SSS'); // .format('hh:mm:ss.ttt');
+    }
   },
   mounted() {
     this.fileReader = new FileReader();
