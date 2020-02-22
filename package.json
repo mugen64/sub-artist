@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest",
-    "test:components": "jest component --coverage=false"
+    "test:components": "jest component --coverage=false",
+    "test:unit": "jest unit --coverage=false"
   },
   "dependencies": {
     "@mdi/font": "^4.9.95",

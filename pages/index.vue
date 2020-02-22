@@ -21,15 +21,10 @@
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
       <h2>SubTitle Preview</h2>
-      <!-- {{ subtitles }} -->
-      <p
-        v-for="(sub, i) in subtitles"
-        :key="`sub_${i}`"
-        :class="{ 'txt-bold-underline': isCurrent(sub) }"
-      >
-        {{ sub.text }}
-        <br />
-      </p>
+      <sart-subtitle-preview
+        :subtitles="subtitles"
+        :current-time="currentTime"
+      />
     </sart-container>
     <sart-container fluid tag="article">
       <h3>Editor</h3>
@@ -66,9 +61,10 @@
 <script>
 import SartMediaPlayer from '~/components/SartMediaPlayer';
 import TranscriptEditor from '~/components/TranscriptEditor';
+import SartSubtitlePreview from '~/components/SartSubtitlePreview';
 
 export default {
-  components: { SartMediaPlayer, TranscriptEditor },
+  components: { SartMediaPlayer, TranscriptEditor, SartSubtitlePreview },
   data() {
     return {
       mediaUri: null,
@@ -91,9 +87,7 @@ export default {
   },
   computed: {
     formattedCurrentTime() {
-      return this.$moment
-        .duration(this.currentTime, 'seconds')
-        .format(this.wTimeFormat, { trim: false }); // .format('hh:mm:ss.ttt');
+      return this.$subtitles.formatTimeFromFloat(this.currentTime);
     }
   },
   mounted() {
@@ -206,12 +200,6 @@ export default {
       // console.log(evt);
       this.currentTime = evt.target.currentTime;
     },
-    formatTime(time) {
-      // console.log(time);
-      return this.$moment
-        .duration(time, 'seconds')
-        .format(this.wTimeFormat, { trim: false });
-    },
     start() {
       this.startTime = this.formattedCurrentTime;
       this.endTime = null;
@@ -248,13 +236,6 @@ export default {
         });
         this.fileWriter.uri = URL.createObjectURL(this.fileWriter.blob);
       }
-    },
-    isCurrent(sub) {
-      const cur = this.formatTime(this.currentTime);
-      return this.$moment(cur, this.wTimeFormat).isBetween(
-        this.$moment(sub.start, this.wTimeFormat),
-        this.$moment(sub.end, this.wTimeFormat)
-      );
     }
   }
 };
