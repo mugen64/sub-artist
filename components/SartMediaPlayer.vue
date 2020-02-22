@@ -64,11 +64,22 @@ export default {
     mediaError() {
       if (!this.mediaUri) return 'Please Load Video';
       return 'Unknown Error';
+    },
+    isVideo() {
+      return this.mediaFile.kind === 'video';
     }
   },
   methods: {
     errorIconClicked() {
       if (!this.mediaUri) this.$emit('req-media-uri');
+    },
+    play(timeInFloat) {
+      const player = this.isVideo
+        ? this.$refs.videoPlayer
+        : this.$refs.audioPlayer;
+      // TODO find if there is another way of doing this
+      player.play();
+      player.currentTime = timeInFloat;
     }
   }
 };

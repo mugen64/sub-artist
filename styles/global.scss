@@ -17,6 +17,11 @@ a, button {
     color: darken($primary, $amount: 50);
   }
 }
+p, blockquote{
+  word-wrap: break-word; /* old name */
+  overflow-wrap: break-word;
+}
+
 nav {
   ul, li {
     list-style: none;
