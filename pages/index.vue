@@ -99,7 +99,45 @@ export default {
   mounted() {
     this.fileReader = new FileReader();
     this.fileReader.onload = (evt) => {
-      console.log(evt);
+      // console.log(evt);
+      const content = (evt.target.result || '').split('\n');
+      console.log(content);
+      const idxOfFirstCue = content.findIndex((v) => {
+        if (v.length <= 0) return false;
+        console.log(v, +v.charAt(0), typeof +v.charAt(0) === 'number');
+        return !isNaN(v.charAt(0));
+      });
+      console.log(idxOfFirstCue);
+      if (idxOfFirstCue > -1) {
+        this.subtitles = [];
+        for (let index = idxOfFirstCue + 1; index < content.length; index++) {
+          let timestep = content[index];
+          while (timestep.length < 1 && index < content.length) {
+            timestep = content[index];
+            index++;
+          }
+          if (index === content.length) break;
+          const idxOfArrow = timestep.lastIndexOf('>');
+          index++;
+          if (index === content.length) break;
+          const text = content[index];
+          this.subtitles.push({
+            start: timestep.substring(0, idxOfArrow - 4),
+            end: timestep.substring(idxOfArrow + 2),
+            text
+          });
+          index++; // move from test line to next
+          // go to next
+          while (index < content.length && content[index].length < 1) {
+            index++;
+          }
+          while (index < content.length && isNaN(content[index].charAt(0))) {
+            index++;
+          }
+          console.log(this.subtitles);
+          if (index === content.length) break;
+        }
+      }
     };
     this.fileReader.onerror = (evt) => {
       console.error('An error ocurred reading the file', evt);
@@ -128,7 +166,11 @@ export default {
       const files = this.$refs.loadMediaFileBtn.files; // FileList
       if (files.length > 0) {
         const file = files[0];
-        // console.log(file);
+        console.log(file);
+        let idx = file.name.lastIndexOf('.');
+        if (idx === -1) idx = file.name.length;
+        const ext = file.name.substring(idx + 1, file.name.length);
+        const name = file.name.substring(idx + 1, file.name.length);
         if (file.type.match(/video/)) {
           // video file
           // console.log('Video File');
@@ -137,6 +179,8 @@ export default {
           this.mediaFile.type = file.type;
           this.mediaFile.name = file.name;
           this.mediaFile.size = file.size;
+          this.mediaFile.fileName = name;
+          this.mediaFile.ext = ext;
         } else if (file.type.match(/audio/)) {
           // audio file
           this.mediaUri = URL.createObjectURL(file);
@@ -144,8 +188,10 @@ export default {
           this.mediaFile.type = file.type;
           this.mediaFile.name = file.name;
           this.mediaFile.size = file.size;
+          this.mediaFile.fileName = name;
+          this.mediaFile.ext = ext;
           // console.log('Audio File');
-        } else if (file.type.match(/text\/vtt/)) {
+        } else if (file.type.match(/text\/vtt/) || ext === 'vtt') {
           if (this.fileReader) {
             this.fileReader.readAsText(file, 'UTF-8');
           }
