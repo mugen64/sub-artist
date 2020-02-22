@@ -7,6 +7,7 @@ import SartAppFooter from '~/components/layouts/SartAppFooter';
 import SartContainer from '~/components/layouts/SartContainer';
 import Spacer from '~/components/layouts/Spacer';
 import SartTiles from '~/components/layouts/SartTiles';
+import MaterialIcon from '~/components/MaterialIcon';
 
 Vue.component('sart-app', SartApp);
 Vue.component('sart-appbar', SartAppbar);
@@ -14,3 +15,4 @@ Vue.component('sart-app-footer', SartAppFooter);
 Vue.component('sart-container', SartContainer);
 Vue.component('sart-tiles', SartTiles);
 Vue.component('spacer', Spacer);
+Vue.component('material-icon', MaterialIcon);
