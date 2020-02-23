@@ -39,7 +39,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/global-vue.js'],
+  plugins: [
+    { src: '~/plugins/global-vue.js' },
+    { src: '~/plugins/moment.js' },
+    { src: '~/plugins/businessLogic.js' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -73,4 +77,4 @@ export default {
      */
     extend(config, ctx) {}
   }
-}
+};

@@ -59,6 +59,7 @@ export default {
   overflow: hidden;
   width: 100%;
   border-bottom: 1px solid lighten($primary, $amount: 60);
+  background-color: #fff;
   &--fixed {
     position: fixed;
     top: 0;
