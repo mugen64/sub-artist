@@ -22,7 +22,7 @@
         :media-uri="mediaUri"
         :media-file="mediaFile"
         @req-media-uri="requestVideo"
-        @play="playMedia"
+        @play="onPlayMedia"
         @timeupdate="mediaTimeUpdate"
       />
       <div v-if="showError" class="txt--danger alert">
@@ -39,22 +39,28 @@
       <sart-toolbar>
         <spacer />
         <label for="showActions" class="txt--danger">
-          [Show Sub Actions]
           <input v-model="showActions" type="checkbox" name="showActions" />
+          [Show Sub Actions]
+        </label>
+        <label for="autoScroll" class="txt--danger">
+          <input v-model="autoScroll" type="checkbox" name="autoScroll" />
+          [Auto scroll]
         </label>
       </sart-toolbar>
-      <sart-subtitle-preview
-        ref="subtitlePreviewer"
-        class="workspace__preview"
-        :subtitles="subtitles"
-        :show-actions="showActions"
-        :current-time="currentTime"
-        @sub-clicked="jumpToSubTime"
-        @delete="deleteCue"
-      />
+      <div ref="subtitlePreviewContainer" class="workspace__preview">
+        <sart-subtitle-preview
+          ref="subtitlePreviewer"
+          :subtitles="subtitles"
+          :show-actions="showActions"
+          :current-time="currentTime"
+          :auto-scroll="autoScroll"
+          @sub-clicked="jumpToSubTime"
+          @delete="deleteCue"
+        />
+      </div>
     </sart-container>
     <sart-container fluid tag="article">
-      <hr />
+      <!-- <hr /> -->
       <h3>Cue Editor</h3>
       <sart-toolbar>
         <button
@@ -74,6 +80,9 @@
           End={{ endTime || formattedCurrentTime }}
         </button>
         <spacer />
+        <button :disabled="!mediaUri" @click="toggleMediaPlay">
+          {{ playing ? 'Pause' : 'Play' }}
+        </button>
         <button :disabled="!mediaUri" @click="commit">
           Add
           <material-icon icon="plus-thick" />
@@ -125,10 +134,12 @@ export default {
       subtitle: '',
       subtitles: [],
       showActions: false,
+      autoScroll: true,
       showError: false,
       showSuccess: false,
       errorText: '',
-      successText: ''
+      successText: '',
+      playing: false
     };
   },
   computed: {
@@ -137,6 +148,16 @@ export default {
     }
   },
   mounted() {
+    // this.$refs.subtitlePreviewContainer.addEventListener(
+    //   'scroll',
+    //   (e) => {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    //     e.returnValue = false;
+    //     return false;
+    //   },
+    //   false
+    // );
     this.fileReader = new FileReader();
     this.fileReader.onload = (evt) => {
       // console.log(evt);
@@ -244,11 +265,22 @@ export default {
         );
       }
     },
-    playMedia() {
+    onPlayMedia() {
+      this.playing = true;
       this.$refs.subtitlePreviewer.start();
     },
-    pauseMedia() {
+    onPauseMedia() {
+      this.playing = false;
       this.$refs.subtitlePreviewer.stop();
+    },
+    toggleMediaPlay() {
+      if (this.playing) {
+        this.$refs.mediaPlayer.pause();
+        this.playing = false;
+      } else {
+        this.$refs.mediaPlayer.play(this.currentTime);
+        this.playing = true;
+      }
     },
     deleteCue(i) {
       this.subtitles.splice(i, 1);

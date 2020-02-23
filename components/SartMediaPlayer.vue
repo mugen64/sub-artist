@@ -79,13 +79,20 @@ export default {
     errorIconClicked() {
       if (!this.mediaUri) this.$emit('req-media-uri');
     },
-    play(timeInFloat) {
+    play(timeInFloat = 0) {
       const player = this.isVideo
         ? this.$refs.videoPlayer
         : this.$refs.audioPlayer;
       // TODO find if there is another way of doing this
       player.play();
       player.currentTime = timeInFloat;
+    },
+    pause() {
+      const player = this.isVideo
+        ? this.$refs.videoPlayer
+        : this.$refs.audioPlayer;
+      // TODO find if there is another way of doing this
+      player.pause();
     }
   }
 };

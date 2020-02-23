@@ -35,6 +35,10 @@ export default {
     showActions: {
       type: Boolean,
       default: false
+    },
+    autoScroll: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -64,11 +68,17 @@ export default {
             if (m.target.tagName === 'P' || m.target.tagName === 'p') {
               if (m.target.className.match(/txt-bold-underline/)) {
                 // console.log(m.target);
-                m.target.scrollIntoView({
-                  behavior: 'smooth'
-                });
+                // document.body.style.overflow = 'hidden';
+                if (this.autoScroll) {
+                  m.target.scrollIntoView({
+                    behavior: 'smooth'
+                  });
+                }
+
+                // console.log(m.target.offsetParent);
                 this.$nextTick(() => {
                   this.$emit('scroll-target', m.target);
+                  // document.body.style.overflow = 'auto';
                 });
               }
             }
