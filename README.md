@@ -1,6 +1,6 @@
 # Sub Artist
 ![](./static/icon.png)
-> Annotate And Sub Video and Audio Media
+> [Weekend Project] Annotate And Sub Video and Audio Media
 
 ## Build Setup
 
