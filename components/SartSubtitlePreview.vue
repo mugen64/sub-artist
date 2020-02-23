@@ -31,23 +31,7 @@ export default {
     };
   },
   mounted() {
-    this.currentSubObserver = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        if (m.type === 'attributes' && m.attributeName === 'class') {
-          if (m.target.tagName === 'P' || m.target.tagName === 'p') {
-            if (m.target.className.match(/txt-bold-underline/)) {
-              // console.log(m.target);
-              m.target.scrollIntoView({
-                behavior: 'smooth'
-              });
-              this.$nextTick(() => {
-                this.$emit('scroll-target', m.target);
-              });
-            }
-          }
-        }
-      }
-    });
+    this.createObserver();
   },
   beforeDestroy() {
     this.stop();
@@ -59,6 +43,25 @@ export default {
         sub.start,
         sub.end
       );
+    },
+    createObserver() {
+      this.currentSubObserver = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          if (m.type === 'attributes' && m.attributeName === 'class') {
+            if (m.target.tagName === 'P' || m.target.tagName === 'p') {
+              if (m.target.className.match(/txt-bold-underline/)) {
+                // console.log(m.target);
+                m.target.scrollIntoView({
+                  behavior: 'smooth'
+                });
+                this.$nextTick(() => {
+                  this.$emit('scroll-target', m.target);
+                });
+              }
+            }
+          }
+        }
+      });
     },
     onSubClicked(sub) {
       this.$emit('sub-clicked', sub);

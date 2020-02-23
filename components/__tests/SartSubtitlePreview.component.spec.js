@@ -18,6 +18,8 @@ describe('SartMediaPlayer.vue', () => {
   ];
   const currentTime = 1.0;
   const isCurrentSubtitleMock = jest.fn();
+  const startMock = jest.fn();
+  const createObserverMock = jest.fn();
   beforeEach(() => {
     wrapper = shallowMount(Component, {
       propsData: {
@@ -28,7 +30,9 @@ describe('SartMediaPlayer.vue', () => {
         MaterialIcon: true
       },
       methods: {
-        isCurrentSubtitle: isCurrentSubtitleMock
+        isCurrentSubtitle: isCurrentSubtitleMock,
+        start: startMock,
+        createObserver: createObserverMock
       }
     });
     // wrapper.vm.isCurrentSubtitle = isCurrentSubtitle;
