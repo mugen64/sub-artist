@@ -14,15 +14,19 @@
       />
       <sart-media-player
         ref="mediaPlayer"
+        class="workspace__media-player"
         :media-uri="mediaUri"
         :media-file="mediaFile"
         @req-media-uri="requestVideo"
+        @play="playMedia"
         @timeupdate="mediaTimeUpdate"
       />
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
       <h2>SubTitle Preview</h2>
       <sart-subtitle-preview
+        ref="subtitlePreviewer"
+        class="workspace__preview"
         :subtitles="subtitles"
         :current-time="currentTime"
         @sub-clicked="jumpToSubTime"
@@ -197,6 +201,12 @@ export default {
         );
       }
     },
+    playMedia() {
+      this.$refs.subtitlePreviewer.start();
+    },
+    pauseMedia() {
+      this.$refs.subtitlePreviewer.stop();
+    },
     generate() {
       this.cleanCurrentFile();
       this.fileWriter.blob = new Blob(
@@ -224,6 +234,10 @@ export default {
   &__media-viewer {
     border-left: none;
     border-top: none;
+  }
+  &__preview {
+    max-height: 360px;
+    overflow-y: scroll;
   }
 }
 </style>
