@@ -2,8 +2,8 @@
   <textarea
     v-model="transcript"
     name="transcript"
-    cols="10"
-    class="fill-width"
+    cols="20"
+    class="transcript-editor fill-width"
   />
 </template>
 <script>
@@ -29,3 +29,8 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.transcript-editor {
+  min-height: 60px;
+}
+</style>
