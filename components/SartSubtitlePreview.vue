@@ -3,9 +3,17 @@
     <p
       v-for="(sub, i) in subtitles"
       :key="`sub_${i}`"
+      class="sart-subtitle-preview__item"
       :class="{ 'txt-bold-underline': isCurrentSubtitle(sub) }"
       @click="onSubClicked(sub)"
     >
+      <span v-show="showActions" class="sart-subtitle-preview__item--actions">
+        {{ sub.start }} ---> {{ sub.end }}
+        <button class="txt--danger" @click.stop="deleteCue(i)">
+          <material-icon icon="delete" />
+        </button>
+      </span>
+      <br v-show="showActions" />
       {{ sub.text }}
       <br />
     </p>
@@ -23,6 +31,10 @@ export default {
     currentTime: {
       type: Number,
       default: 0
+    },
+    showActions: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -30,6 +42,7 @@ export default {
       currentSubObserver: null
     };
   },
+  computed: {},
   mounted() {
     this.createObserver();
   },
@@ -75,6 +88,9 @@ export default {
     },
     stop() {
       this.currentSubObserver.disconnect();
+    },
+    deleteCue(i) {
+      this.$emit('delete', i);
     }
   }
 };
@@ -94,6 +110,11 @@ export default {
   .sart-subtitle-preview {
     p {
       max-width: 80ch;
+    }
+    &__item {
+      &--actions {
+        display: flex;
+      }
     }
   }
 }

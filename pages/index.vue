@@ -28,12 +28,21 @@
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
       <h2>Subtitle Preview</h2>
+      <sart-toolbar>
+        <spacer />
+        <label for="showActions" class="txt--danger">
+          [Show Sub Actions]
+          <input v-model="showActions" type="checkbox" name="showActions" />
+        </label>
+      </sart-toolbar>
       <sart-subtitle-preview
         ref="subtitlePreviewer"
         class="workspace__preview"
         :subtitles="subtitles"
+        :show-actions="showActions"
         :current-time="currentTime"
         @sub-clicked="jumpToSubTime"
+        @delete="deleteCue"
       />
     </sart-container>
     <sart-container fluid tag="article">
@@ -107,7 +116,7 @@ export default {
       endTime: null,
       subtitle: '',
       subtitles: [],
-      wTimeFormat: 'hh:mm:ss.SSS'
+      showActions: false
     };
   },
   computed: {
@@ -150,7 +159,7 @@ export default {
       const files = this.$refs.loadMediaFileBtn.files; // FileList
       if (files.length > 0) {
         const file = files[0];
-        console.log(file);
+        // console.log(file);
         let idx = file.name.lastIndexOf('.');
         if (idx === -1) idx = file.name.length;
         const ext = file.name.substring(idx + 1, file.name.length);
@@ -225,6 +234,9 @@ export default {
     },
     pauseMedia() {
       this.$refs.subtitlePreviewer.stop();
+    },
+    deleteCue(i) {
+      this.subtitles.splice(i, 1);
     },
     generate() {
       this.cleanCurrentFile();
