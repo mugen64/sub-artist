@@ -27,15 +27,14 @@
       />
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
+      <h2>Subtitle Preview</h2>
       <sart-toolbar>
         <spacer />
-        <label for="showActions">
-          Show
+        <label for="showActions" class="txt--danger">
+          [Show Sub Actions]
           <input v-model="showActions" type="checkbox" name="showActions" />
         </label>
       </sart-toolbar>
-      <br />
-      <h2>Subtitle Preview</h2>
       <sart-subtitle-preview
         ref="subtitlePreviewer"
         class="workspace__preview"

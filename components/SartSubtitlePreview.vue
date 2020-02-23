@@ -9,7 +9,7 @@
     >
       <span v-show="showActions" class="sart-subtitle-preview__item--actions">
         {{ sub.start }} ---> {{ sub.end }}
-        <button class="txt-danger" @click.stop="deleteCue(i)">
+        <button class="txt--danger" @click.stop="deleteCue(i)">
           <material-icon icon="delete" />
         </button>
       </span>
