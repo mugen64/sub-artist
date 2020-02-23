@@ -12,43 +12,66 @@
         data-test="loadMediaFileBtn"
         @change="fileLoaded"
       />
+      <br />
+      <p class="txt--danger">
+        [Note: Your video or audio is not uploaded or backed up any where ]
+      </p>
       <sart-media-player
         ref="mediaPlayer"
+        class="workspace__media-player"
         :media-uri="mediaUri"
         :media-file="mediaFile"
         @req-media-uri="requestVideo"
+        @play="playMedia"
         @timeupdate="mediaTimeUpdate"
       />
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
-      <h2>SubTitle Preview</h2>
+      <h2>Subtitle Preview</h2>
       <sart-subtitle-preview
+        ref="subtitlePreviewer"
+        class="workspace__preview"
         :subtitles="subtitles"
         :current-time="currentTime"
         @sub-clicked="jumpToSubTime"
       />
     </sart-container>
     <sart-container fluid tag="article">
-      <h3>Editor</h3>
+      <hr />
+      <h3>Cue Editor</h3>
       <sart-toolbar>
-        <button :disabled="!mediaUri" @click="start">
+        <button
+          class="btn--primary"
+          :disabled="!mediaUri"
+          :class="{ 'btn--success': !!startTime }"
+          @click="start"
+        >
           Start={{ startTime || formattedCurrentTime }}
         </button>
-        <button :disabled="!mediaUri" @click="endTime = formattedCurrentTime">
+        <button
+          class="btn--primary"
+          :class="{ 'btn--success': !!endTime }"
+          :disabled="!mediaUri"
+          @click="endTime = formattedCurrentTime"
+        >
           End={{ endTime || formattedCurrentTime }}
         </button>
         <spacer />
         <button :disabled="!mediaUri" @click="commit">
-          Commit
+          Add
+          <material-icon icon="plus-thick" />
         </button>
         <button @click="subtitles = []">
           Clear
+          <material-icon icon="notification-clear-all" />
         </button>
         <button :disabled="subtitles.length < 1" @click="generate">
           Generate
         </button>
         <a
-          :disabled="!fileWriter.uri"
+          v-show="fileWriter.uri"
+          class="btn"
+          :class="{ 'btn-primary': !!fileWriter.uri }"
           :href="fileWriter.uri"
           :download="`${mediaFile.name}.vtt`"
         >
@@ -197,6 +220,12 @@ export default {
         );
       }
     },
+    playMedia() {
+      this.$refs.subtitlePreviewer.start();
+    },
+    pauseMedia() {
+      this.$refs.subtitlePreviewer.stop();
+    },
     generate() {
       this.cleanCurrentFile();
       this.fileWriter.blob = new Blob(
@@ -224,6 +253,10 @@ export default {
   &__media-viewer {
     border-left: none;
     border-top: none;
+  }
+  &__preview {
+    max-height: 360px;
+    overflow-y: scroll;
   }
 }
 </style>

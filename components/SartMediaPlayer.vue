@@ -17,6 +17,7 @@
         ref="videoPlayer"
         :src="mediaUri"
         controls
+        :style="`max-width: ${maxWidth};`"
         @timeupdate="$emit('timeupdate', $event)"
         @play="$emit('play', $event)"
         @playing="$emit('pause', $event)"
@@ -31,6 +32,7 @@
         ref="audioPlayer"
         :src="mediaUri"
         controls
+        :style="`max-width: ${maxWidth};`"
         @timeupdate="$emit('timeupdate', $event)"
         @play="$emit('play', $event)"
         @playing="$emit('pause', $event)"
@@ -55,6 +57,10 @@ export default {
       default: () => {
         return {};
       }
+    },
+    maxWidth: {
+      type: [Number, String],
+      default: '600px'
     }
   },
   data() {
@@ -62,7 +68,7 @@ export default {
   },
   computed: {
     mediaError() {
-      if (!this.mediaUri) return 'Please Load Video';
+      if (!this.mediaUri) return 'Please Load Video or Audio File';
       return 'Unknown Error';
     },
     isVideo() {
