@@ -1,5 +1,5 @@
-# sub-artist
-
+# Sub Artist
+![](./static/icon.png)
 > Annotate And Sub Video and Audio Media
 
 ## Build Setup
@@ -18,5 +18,5 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
-
+![](./static/downloads.jpg)
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
