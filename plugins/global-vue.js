@@ -1,5 +1,4 @@
 import Vue from 'vue';
-
 // layout components
 import SartApp from '~/components/layouts/SartApp';
 import SartAppbar from '~/components/layouts/SartAppBar';

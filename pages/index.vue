@@ -25,6 +25,14 @@
         @play="playMedia"
         @timeupdate="mediaTimeUpdate"
       />
+      <div v-if="showError" class="txt--danger alert">
+        <button class="txt--danger" @click="showError = false">[x]</button>
+        &nbsp; {{ errorText }}
+      </div>
+      <div v-if="showSuccess" class="txt--success alert">
+        <button class="txt--success" @click="showSuccess = false">[x]</button>
+        &nbsp; {{ successText }}
+      </div>
     </sart-container>
     <sart-container tag="article" style="min-width:300px;">
       <h2>Subtitle Preview</h2>
@@ -80,7 +88,7 @@
         <a
           v-show="fileWriter.uri"
           class="btn"
-          :class="{ 'btn-primary': !!fileWriter.uri }"
+          :class="{ 'btn--success': !!fileWriter.uri }"
           :href="fileWriter.uri"
           :download="`${mediaFile.name}.vtt`"
         >
@@ -116,7 +124,11 @@ export default {
       endTime: null,
       subtitle: '',
       subtitles: [],
-      showActions: false
+      showActions: false,
+      showError: false,
+      showSuccess: false,
+      errorText: '',
+      successText: ''
     };
   },
   computed: {
@@ -133,7 +145,10 @@ export default {
       );
     };
     this.fileReader.onerror = (evt) => {
-      console.error('An error ocurred reading the file', evt);
+      // eslint-disable-next-line nuxt/no-env-in-hooks
+      if (process.client) {
+        this.error('An error ocurred reading the file', evt);
+      }
     };
   },
   beforeDestroy() {
@@ -189,10 +204,10 @@ export default {
             this.fileReader.readAsText(file, 'UTF-8');
           }
         } else {
-          console.log('File Not supported');
+          this.error('File Type Not Supported');
         }
       } else {
-        console.log('No File Selected');
+        this.error('No File Selected');
       }
     },
     mediaTimeUpdate(evt) {
@@ -205,7 +220,7 @@ export default {
     },
     commit() {
       if (!this.startTime || !this.endTime) {
-        console.log(
+        this.error(
           'Cue Times Invalid Make Sure Start is before Endtime and both are captured'
         );
         return;
@@ -218,7 +233,7 @@ export default {
           text: this.subtitle
         });
       else
-        console.log(
+        this.error(
           'Cue Times Invalid Make Sure Start is before Endtime and both are captured'
         );
     },
@@ -238,6 +253,14 @@ export default {
     deleteCue(i) {
       this.subtitles.splice(i, 1);
     },
+    error(txt) {
+      this.showError = true;
+      this.errorText = txt;
+    },
+    success(txt) {
+      this.showSuccess = true;
+      this.successText = txt;
+    },
     generate() {
       this.cleanCurrentFile();
       this.fileWriter.blob = new Blob(
@@ -252,6 +275,9 @@ export default {
         }
       );
       this.fileWriter.uri = URL.createObjectURL(this.fileWriter.blob);
+      this.success(
+        'Successfully Generated For You A File To Download Click Download Button To Download'
+      );
     }
   }
 };
