@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     mediaError() {
-      if (!this.mediaUri) return 'Please Load Video';
+      if (!this.mediaUri) return 'Please Load Video or Audio File';
       return 'Unknown Error';
     },
     isVideo() {

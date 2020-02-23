@@ -14,7 +14,7 @@
       />
       <br />
       <p class="txt--danger">
-        [Note: Your video is not uploaded or backed up any where ]
+        [Note: Your video or audio is not uploaded or backed up any where ]
       </p>
       <sart-media-player
         ref="mediaPlayer"
