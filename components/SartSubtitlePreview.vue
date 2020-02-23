@@ -37,6 +37,9 @@ export default {
           if (m.target.tagName === 'P' || m.target.tagName === 'p') {
             if (m.target.className.match(/txt-bold-underline/)) {
               // console.log(m.target);
+              m.target.scrollIntoView({
+                behavior: 'smooth'
+              });
               this.$nextTick(() => {
                 this.$emit('scroll-target', m.target);
               });
