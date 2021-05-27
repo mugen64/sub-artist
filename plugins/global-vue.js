@@ -1,13 +1,13 @@
-const Vue = require('vue');
+import Vue from 'vue';
 // layout components
-const SartApp = require('../components/layouts/SartApp.vue');
-const SartAppbar = require('../components/layouts/SartAppBar.vue');
-const SartAppFooter = require('../components/layouts/SartAppFooter.vue');
-const SartContainer = require('../components/layouts/SartContainer.vue');
-const Spacer = require('../components/layouts/Spacer.vue');
-const SartTiles = require('../components/layouts/SartTiles.vue');
-const MaterialIcon = require('../components/MaterialIcon.vue');
-const SartToolbar = require('../components/layouts/SartToolbar.vue');
+import SartApp from '../components/layouts/SartApp.vue';
+import SartAppbar from '../components/layouts/SartAppBar.vue';
+import SartAppFooter from '../components/layouts/SartAppFooter.vue';
+import SartContainer from '../components/layouts/SartContainer.vue';
+import Spacer from '../components/layouts/Spacer.vue';
+import SartTiles from '../components/layouts/SartTiles.vue';
+import MaterialIcon from '../components/MaterialIcon.vue';
+import SartToolbar from '../components/layouts/SartToolbar.vue';
 
 Vue.component('sart-app', SartApp);
 Vue.component('sart-appbar', SartAppbar);

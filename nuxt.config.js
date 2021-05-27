@@ -1,8 +1,12 @@
-const Sass = require('sass');
-const Fiber = require('fibers');
+import Sass from 'sass';
+import Fiber from 'fibers';
 
 export default {
-  mode: 'universal',
+  target: 'static',
+  ssr: false,
+  generate: {
+    fallback: true
+  },
   /*
    ** Headers of the page
    */
