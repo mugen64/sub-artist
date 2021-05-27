@@ -1,7 +1,7 @@
 /// <reference types="jest"/>
 
 import { shallowMount } from '@vue/test-utils';
-import Component from '~/components/SartSubtitlePreview';
+import Component from '../SartSubtitlePreview';
 describe('SartMediaPlayer.vue', () => {
   let wrapper;
   const subtitles = [

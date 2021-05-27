@@ -1,7 +1,7 @@
 /// <reference types="jest"/>
 
 import { shallowMount } from '@vue/test-utils';
-import Component from '~/components/SartMediaPlayer';
+import Component from '../SartMediaPlayer';
 describe('SartMediaPlayer.vue', () => {
   let wrapper;
   beforeEach(() => {

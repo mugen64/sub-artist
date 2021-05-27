@@ -1,7 +1,7 @@
 /// <reference types="jest"/>
 
 import { shallowMount } from '@vue/test-utils';
-import Component from '~/components/layouts/SartContainer.vue';
+import Component from '../SartContainer.vue';
 describe('SartContainer.vue', () => {
   let wrapper;
   const text = 'This is an Container wrapper';

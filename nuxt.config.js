@@ -1,3 +1,6 @@
+const Sass = require('sass');
+const Fiber = require('fibers');
+
 export default {
   mode: 'universal',
   /*
@@ -75,6 +78,14 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {},
+    loaders: {
+      scss: {
+        implementation: Sass,
+        sassOptions: {
+          fiber: Fiber
+        }
+      }
+    }
   }
 };

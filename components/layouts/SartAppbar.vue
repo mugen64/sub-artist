@@ -26,8 +26,8 @@
   </header>
 </template>
 <script>
-import SartResponsiveLogo from '~/components/SartResponsiveLogo';
-import Spacer from '~/components/layouts/Spacer';
+import SartResponsiveLogo from '../SartResponsiveLogo';
+import Spacer from './Spacer';
 /**
  * * @props={fixed:Boolean=true}
  */

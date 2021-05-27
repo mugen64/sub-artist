@@ -4,7 +4,7 @@
   </component>
 </template>
 <script>
-import SartContainer from '~/components/layouts/SartContainer';
+import SartContainer from './SartContainer';
 export default {
   components: {
     SartContainer

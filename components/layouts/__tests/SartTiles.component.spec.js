@@ -1,7 +1,7 @@
 /// <reference types="jest"/>
 
 import { shallowMount } from '@vue/test-utils';
-import Component from '~/components/layouts/SartTiles';
+import Component from '../SartTiles';
 describe('SartTiles.vue', () => {
   let wrapper;
   const text = 'This is an Tiles wrapper';

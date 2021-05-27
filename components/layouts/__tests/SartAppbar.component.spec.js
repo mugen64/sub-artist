@@ -1,7 +1,7 @@
 /// <reference types="jest"/>
 
 import { shallowMount } from '@vue/test-utils';
-import Component from '~/components/layouts/SartAppbar.vue';
+import Component from '../SartAppbar.vue';
 describe('SartAppbar.vue', () => {
   let wrapper;
   beforeEach(() => {
