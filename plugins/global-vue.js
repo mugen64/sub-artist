@@ -1,13 +1,13 @@
 import Vue from 'vue';
 // layout components
-import SartApp from '../components/layouts/SartApp';
-import SartAppbar from '../components/layouts/SartAppBar';
-import SartAppFooter from '../components/layouts/SartAppFooter';
-import SartContainer from '../components/layouts/SartContainer';
-import Spacer from '../components/layouts/Spacer';
-import SartTiles from '../components/layouts/SartTiles';
-import MaterialIcon from '../components/MaterialIcon';
-import SartToolbar from '../components/layouts/SartToolbar';
+import SartApp from '../components/layouts/SartApp.vue';
+import SartAppbar from '../components/layouts/SartAppBar.vue';
+import SartAppFooter from '../components/layouts/SartAppFooter.vue';
+import SartContainer from '../components/layouts/SartContainer.vue';
+import Spacer from '../components/layouts/Spacer.vue';
+import SartTiles from '../components/layouts/SartTiles.vue';
+import MaterialIcon from '../components/MaterialIcon.vue';
+import SartToolbar from '../components/layouts/SartToolbar.vue';
 
 Vue.component('sart-app', SartApp);
 Vue.component('sart-appbar', SartAppbar);

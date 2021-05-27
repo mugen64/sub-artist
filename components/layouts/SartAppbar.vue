@@ -26,7 +26,7 @@
   </header>
 </template>
 <script>
-import SartResponsiveLogo from '../SartResponsiveLogo';
+import SartResponsiveLogo from '../SartResponsiveLogo.vue';
 import Spacer from './Spacer';
 /**
  * * @props={fixed:Boolean=true}

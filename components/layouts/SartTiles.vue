@@ -4,7 +4,7 @@
   </component>
 </template>
 <script>
-import SartContainer from './SartContainer';
+import SartContainer from './SartContainer.vue';
 export default {
   components: {
     SartContainer

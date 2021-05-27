@@ -110,9 +110,9 @@
 </template>
 
 <script>
-import SartMediaPlayer from '../components/SartMediaPlayer';
-import TranscriptEditor from '../components/TranscriptEditor';
-import SartSubtitlePreview from '../components/SartSubtitlePreview';
+import SartMediaPlayer from '../components/SartMediaPlayer.vue';
+import TranscriptEditor from '../components/TranscriptEditor.vue';
+import SartSubtitlePreview from '../components/SartSubtitlePreview.vue';
 
 export default {
   components: { SartMediaPlayer, TranscriptEditor, SartSubtitlePreview },
